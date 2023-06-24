@@ -50,11 +50,23 @@ class PokeController
 
             // Enregistrer le Pokémon dans la base de données
             $pokemon = $this->pokeRepository->save($pokemon);
-
-            header('Location: /pokedex/index.php/catchPoke');
+            $success = "Pokémon attrapé !";
+            include_once './views/catchPoke.php';
         } catch (Exception $e) {
             // Gérer les exceptions
             include_once './views/catchPoke.php';
         }
+    }
+
+    public function displayPoke(){
+        $pokemons = $this->pokeRepository->getPokemons();
+        include_once './views/dashboard.php';
+        
+    }
+
+    public function deletePoke($id){
+        $this->pokeRepository->delete($id);
+        header("Location: /pokedex/index.php/dashboard");
+        
     }
 }

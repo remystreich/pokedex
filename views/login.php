@@ -1,6 +1,6 @@
 <?php
 session_start();
-$form = new Form();
+$form = new Form($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,8 +30,8 @@ $form = new Form();
                         if ($e) {
                             echo '<p class="text-red-500">' . $e->getMessage() . '</p>';
                         }
-                        echo $form->input('email', 'text','Email', "");
-                        echo $form->input('password', 'password','Mot de passe',"");
+                        echo $form->input('email', 'text','Email');
+                        echo $form->input('password', 'password','Mot de passe');
                         echo $form->submit();
                         ?>
                         <p class="text-sm font-light text-gray-500 ">

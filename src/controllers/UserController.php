@@ -28,7 +28,6 @@ class UserController {
             $errors['email2'] = "Cette adresse mail existe déjà";
         }
         if ($errors){
-            $post= $_POST;
             include_once './views/register.php';
         }else{
             $user = new UserModel($data['name'],$data['password'],$data['email']);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$form = new Form();
+$form = new Form($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,14 +28,14 @@ $form = new Form();
                     <form class="space-y-4 md:space-y-6" action="" method="post">
                         <?php
                         echo '<p class="text-red-500">' . $errors['name'] . '</p>';
-                        echo $form->input('name', 'text','Nom', $post['name']);
+                        echo $form->input('name', 'text','Nom');
                         echo '<p class="text-red-500">' . $errors['email'] . '</p>';
                         echo '<p class="text-red-500">' . $errors['email2'] . '</p>';
-                        echo $form->input('email', 'text','Email', $post['email']);
+                        echo $form->input('email', 'text','Email');
                         echo '<p class="text-red-500">' . $errors['password2'] . '</p>';
-                        echo $form->input('password', 'password','Mot de passe',$post['password']);
+                        echo $form->input('password', 'password','Mot de passe');
                         echo '<p class="text-red-500">' . $errors['password1'] . '</p>';
-                        echo $form->input('confirmPassword', 'password','Confirmer le mot de passe',$post['confirmPassword']);
+                        echo $form->input('confirmPassword', 'password','Confirmer le mot de passe');
                         echo $form->submit();
                         ?>
                         <p class="text-sm font-light text-gray-500 ">

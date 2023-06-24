@@ -18,7 +18,13 @@ $form = new Form();
     ?>
     <main>
     <section class="bg-transparent">
+       
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <?php
+            if ($success) {
+                echo '<p class="text-emerald-500 text-3xl pb-8">' . $success . '</p>';
+            }
+        ?>
             <div class="w-full bg-emerald-400 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -29,6 +35,7 @@ $form = new Form();
                         if ($e) {
                             echo '<p class="text-red-500">' . $e->getMessage() . '</p>';
                         }
+                        
                         echo $form->input('pokemon', 'text','Nom du pokémon', $post['pokemon']);
                         echo $form->submit();
                         ?>
