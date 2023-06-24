@@ -50,12 +50,16 @@ class PokeRepository
 
     public function delete($id)
     {
-        $photoPath = $this->getPhotoPath($id);
+        $photoPath = './assets/' . $this->getPhotoPath($id);
         unlink($photoPath);
         // Préparation de la requête DELETE avec une clause WHERE pour l'ID
         $query = "DELETE FROM pokemon WHERE id = :id";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(':id', $id);
         $state->execute();
+    }
+
+    public function update($id, PokeModel $pokemon ){
+
     }
 }

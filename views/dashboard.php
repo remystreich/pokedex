@@ -18,6 +18,11 @@ session_start();
     include './views/layouts/_header.php'
     ?>
     <main>
+        <?php
+             if ($e) {
+                echo '<p class="text-red-500">' . $e->getMessage() . '</p>';
+            }
+        ?>
         <!-- Container for demo purpose -->
         <div class="container my-24 mx-auto md:px-6">
             <!-- Section: Design Block -->
@@ -28,6 +33,7 @@ session_start();
                 <div class="lg:gap-xl-12 grid gap-x-6 gap-y-6 md:grid-cols-2 lg:grid-cols-4">
                     <?php
                         foreach ($pokemons as $pokemon) {
+                            
                             include './views/layouts/_pokeCard.php';
                         }
                     ?>

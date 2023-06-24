@@ -12,13 +12,13 @@ require './src/repositories/PokeRepository.php';
 $userController = new UserController();
 $pokeController = new PokeController();
 
-$action = isset($_SERVER['REQUEST_URI']) ? (substr($_SERVER['REQUEST_URI'], 19)) : '';
+$actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
 
 // Extraire l'action à partir de l'URL
-$actionParts = explode('/', $action);
-$action = $actionParts[0];
 
-var_dump($action);
+$action = $actionParts[3];
+
+ var_dump($action);
 switch ($action) {
 
     case 'register':
@@ -37,18 +37,30 @@ switch ($action) {
 
     case 'dashboard':
         //verification de parametre de requete
-         if (count($actionParts) > 1) {
-            if ($actionParts[1]== 'deletePoke')
-            $id = $actionParts[2];
-            // Appeler la méthode deletePoke avec l'identifiant
-            $pokeController->deletePoke($id);
+        if (count($actionParts) > 4) {
+            $id = $actionParts[5];
+            if ($actionParts[4] == 'deletePoke'){
+                // Appeler la méthode deletePoke avec l'identifiant
+                $pokeController->deletePoke($id);
+            }
 
-        } 
+            if ($actionParts[4] == 'evoPoke' ){
+                $name = $actionParts[6];
+                $pokeController->evoPoke($id, $name);
+            }
+
+            // else if ($actionParts[4] == 'updatePoke' ){
+            //     $pokeController->updatePoke($id);
+            // }
+            else {
+                $pokeController->displayPoke();
+            }
+
         //si pas action affichage du dashboard
-        else {
+        }else {
             $pokeController->displayPoke();
         }
-       
+
         break;
 
     case 'catchPoke':
@@ -58,8 +70,8 @@ switch ($action) {
         include_once('./views/catchPoke.php');
         break;
 
-    
-        
+
+
 
     default:
         # code...
