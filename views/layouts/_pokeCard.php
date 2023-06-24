@@ -14,7 +14,7 @@ echo'
       <p class="mb-4  ">'.$pokemon['type'].'</p>
       <ul class="mx-auto flex list-inside justify-center">
         <li>
-          <a href="/pokedex/index.php/dashboard/updatePoke/'.$pokemon['id'].'" class="px-2">
+          <a href="/pokedex/index.php/updatePoke/'.$pokemon['id'].'/'.$pokemon['name'].'" class="px-2">
             <i class="fa-solid fa-pen fa-xl" style="color: #2527eb;" title="Modifier"></i>
           </a>
         </li>
@@ -24,7 +24,7 @@ echo'
           </a>
         </li>
         <li>
-          <a href="/pokedex/index.php/dashboard/evoPoke/'.$pokemon['id'].'/'.$pokemon['name'].'" class="px-2">
+          <a href="/pokedex/index.php/dashboard/evoPoke/'.$pokemon['id'].'/'.$pokemon['pokedex_id'].'" class="px-2">
           <i class="fa-solid fa-dna fa-xl "  title="Faire évoluer"></i>
           </a>
         </li>

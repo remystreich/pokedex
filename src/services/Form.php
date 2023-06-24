@@ -15,10 +15,23 @@ class Form{
         }
 
     public function input($name, $type, $label){
-        echo '  <div>
-                    <label for="'.$name.'" class="block mb-2 text-sm font-medium text-gray-900">'.$label.'</label>
-                    <input type="'.$type.'" name="'.$name.'" id="'.$name.'" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="'.$name.'" value="'. $this->getValue($name).'"  required>
-                </div>';
+        switch ($type) {
+            case 'file':
+                echo '  <div>
+                            <label for="'.$name.'" class="block mb-2 text-sm font-medium text-gray-900">'.$label.'</label>
+                            <input type="'.$type.'" name="'.$name.'" id="'.$name.'" class="input-file input-file-warning" placeholder="'.$label.'" value="'. $this->getValue($name).'">
+                        </div>';
+
+                break;
+            
+            default:
+                echo '  <div>
+                            <label for="'.$name.'" class="block mb-2 text-sm font-medium text-gray-900">'.$label.'</label>
+                            <input type="'.$type.'" name="'.$name.'" id="'.$name.'" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="'.$label.'" value="'. $this->getValue($name).'" >
+                        </div>';
+                break;
+        }
+       
     }
 
     public function submit(){
@@ -28,4 +41,3 @@ class Form{
                 ';
     }
 }
-?>

@@ -11,6 +11,7 @@ require './src/repositories/PokeRepository.php';
 
 $userController = new UserController();
 $pokeController = new PokeController();
+$pokeRepository = new PokeRepository();
 
 $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
 
@@ -18,7 +19,6 @@ $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_
 
 $action = $actionParts[3];
 
- var_dump($action);
 switch ($action) {
 
     case 'register':
@@ -39,25 +39,18 @@ switch ($action) {
         //verification de parametre de requete
         if (count($actionParts) > 4) {
             $id = $actionParts[5];
-            if ($actionParts[4] == 'deletePoke'){
+            if ($actionParts[4] == 'deletePoke') {
                 // Appeler la méthode deletePoke avec l'identifiant
                 $pokeController->deletePoke($id);
-            }
-
-            if ($actionParts[4] == 'evoPoke' ){
-                $name = $actionParts[6];
-                $pokeController->evoPoke($id, $name);
-            }
-
-            // else if ($actionParts[4] == 'updatePoke' ){
-            //     $pokeController->updatePoke($id);
-            // }
-            else {
+            } else if ($actionParts[4] == 'evoPoke') {
+                $pokedexId = $actionParts[6];
+                $pokeController->evoPoke($id, $pokedexId);
+            } else {
                 $pokeController->displayPoke();
             }
 
-        //si pas action affichage du dashboard
-        }else {
+            //si pas action affichage du dashboard
+        } else {
             $pokeController->displayPoke();
         }
 
@@ -70,8 +63,17 @@ switch ($action) {
         include_once('./views/catchPoke.php');
         break;
 
-
-
+    case 'updatePoke':
+        $version = 'pokemon';
+        $id = $actionParts[4] ;
+        $name = $actionParts[5] ;
+        $data = $pokeRepository->getPokemon($id);
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $pokeController->updatePoke($id, $_POST);
+        }
+        include_once('./views/update.php');
+        break;
 
     default:
         # code...

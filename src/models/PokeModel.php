@@ -5,12 +5,14 @@ class PokeModel {
     private $type;
     private $user_id;
     private $image;
+    private $pokedexId;
 
-    public function __construct($name, $type, $user_id, $image) {
+    public function __construct($name , $type, $user_id, $image = null, $pokedexId = null) {
         $this->name = $name;
         $this->type = $type;
         $this->user_id = $user_id;
         $this->image = $image;
+        $this->pokedexId = $pokedexId;
     }
 
     // Getters
@@ -33,6 +35,9 @@ class PokeModel {
     public function getImage() {
         return $this->image;
     }
+    public function getPokedexId() {
+        return $this->pokedexId;
+    }
 
     // Setters
     public function setId($id) {
@@ -52,6 +57,9 @@ class PokeModel {
     }
     public function setImage($image) {
         $this->image = $image;
+    }
+    public function setPokedexId($pokedexId) {
+        $this->pokedexId = $pokedexId;
     }
 
 }
