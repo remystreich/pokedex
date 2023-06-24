@@ -12,6 +12,7 @@ require './src/repositories/PokeRepository.php';
 $userController = new UserController();
 $pokeController = new PokeController();
 $pokeRepository = new PokeRepository();
+$userRepository = new UserRepository();
 
 $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
 
@@ -29,6 +30,7 @@ switch ($action) {
         break;
 
     case 'login':
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $userController->login($_POST);
         }
@@ -36,6 +38,7 @@ switch ($action) {
         break;
 
     case 'dashboard':
+        $userController->authGuard();
         //verification de parametre de requete
         if (count($actionParts) > 4) {
             $id = $actionParts[5];
@@ -57,6 +60,7 @@ switch ($action) {
         break;
 
     case 'catchPoke':
+        $userController->authGuard();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pokeController->catch($_POST);
         }
@@ -64,13 +68,28 @@ switch ($action) {
         break;
 
     case 'updatePoke':
+        $userController->authGuard();
         $version = 'pokemon';
-        $id = $actionParts[4] ;
-        $name = $actionParts[5] ;
+        $id = $actionParts[4];
         $data = $pokeRepository->getPokemon($id);
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pokeController->updatePoke($id, $_POST);
+        }
+        include_once('./views/update.php');
+        break;
+
+    case 'logout':
+        session_destroy();
+        header("Location:  " . Config::$absolutepath . "/login");
+        break;
+
+    case 'updateUser':
+        $userController->authGuard();
+        $version = 'user';
+        $data = $userRepository->getUser($_SESSION['userId']);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $userController->updateUser($_POST);
         }
         include_once('./views/update.php');
         break;

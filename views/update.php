@@ -22,7 +22,7 @@ $form = new Form($data);
                         <?php
                         switch ($version) {
                             case 'pokemon':
-                                echo ' <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Mise à jour de ' . $name . '</h1>
+                                echo ' <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Mise à jour de ' . $data['name'] . '</h1>
                                             <form class="space-y-4 md:space-y-6" action="" method="post" enctype="multipart/form-data" >';
                                 echo $form->input('name', 'text', 'Nom');
                                 echo $form->input('type', 'text', 'Type');
@@ -32,11 +32,11 @@ $form = new Form($data);
                                 break;
 
                             case 'user':
-                                echo ' <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Mise à jour de ' . $name . '</h1>
+                                echo ' <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Mise à jour du compte : ' .$data['name'] . '</h1>
                                             <form class="space-y-4 md:space-y-6" action="" method="post">';
                                 echo $form->input('name', 'text', 'Nom');
                                 echo $form->input('email', 'text', 'Email');
-                                echo $form->input('password', 'password', 'Mot de passe');
+                                echo $form->input('updatepassword', 'password', 'Nouveau mot de passe');
                                 echo $form->submit();
                                 echo '</form>';
                                 break;

@@ -51,4 +51,16 @@ class UserRepository
             throw new Exception("Erreur d'authentification");
         }
     }
+
+   
+
+    public function getUser($id)
+    {
+        $query = "SELECT * FROM user  WHERE  id = :id ";
+        $state = $this->db->getConnection()->prepare($query);
+        $state->bindParam(":id", $id);
+        $state->execute();
+        $user = $state->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
 }

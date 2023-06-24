@@ -14,17 +14,17 @@ echo'
       <p class="mb-4  ">'.$pokemon['type'].'</p>
       <ul class="mx-auto flex list-inside justify-center">
         <li>
-          <a href="/pokedex/index.php/updatePoke/'.$pokemon['id'].'/'.$pokemon['name'].'" class="px-2">
+          <a href="' . Config::$absolutepath.'/updatePoke/'.$pokemon['id'].'" class="px-2">
             <i class="fa-solid fa-pen fa-xl" style="color: #2527eb;" title="Modifier"></i>
           </a>
         </li>
         <li>
-          <a href="/pokedex/index.php/dashboard/deletePoke/'.$pokemon['id'].'" class="px-2">
+          <a href="' . Config::$absolutepath.'/dashboard/deletePoke/'.$pokemon['id'].'" class="px-2">
             <i class="fa-solid fa-trash fa-xl" style="color: #b81919;" title="Supprimer"></i>
           </a>
         </li>
         <li>
-          <a href="/pokedex/index.php/dashboard/evoPoke/'.$pokemon['id'].'/'.$pokemon['pokedex_id'].'" class="px-2">
+          <a href="' . Config::$absolutepath.'/dashboard/evoPoke/'.$pokemon['id'].'/'.$pokemon['pokedex_id'].'" class="px-2">
           <i class="fa-solid fa-dna fa-xl "  title="Faire évoluer"></i>
           </a>
         </li>
@@ -32,4 +32,6 @@ echo'
     </div>
   </div>
 </div>
-'?>
+'
+
+?>

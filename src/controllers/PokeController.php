@@ -166,7 +166,7 @@ class PokeController
             // Enregistrer le Pokémon dans la base de données
             $update = $this->pokeRepository->update($id, $update);
             
-            header('Location: /pokedex/index.php/dashboard');
+            header("Location:  ".Config::$absolutepath."/dashboard");
         }
     }
 }

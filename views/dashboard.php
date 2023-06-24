@@ -18,11 +18,7 @@ session_start();
     include './views/layouts/_header.php'
     ?>
     <main>
-        <?php
-             if ($e) {
-                echo '<p class="text-red-500">' . $e->getMessage() . '</p>';
-            }
-        ?>
+
         <!-- Container for demo purpose -->
         <div class="container my-24 mx-auto md:px-6">
             <!-- Section: Design Block -->
@@ -30,12 +26,17 @@ session_start();
                 <h2 class="mb-12 text-3xl font-bold">
                     Pokédex
                 </h2>
+                <?php
+                if ($e) {
+                    echo '<p class="text-red-500 text-3xl my-5">' . $e->getMessage() . '</p>';
+                }
+                ?>
                 <div class="lg:gap-xl-12 grid gap-x-6 gap-y-6 md:grid-cols-2 lg:grid-cols-4">
                     <?php
-                        foreach ($pokemons as $pokemon) {
-                            
-                            include './views/layouts/_pokeCard.php';
-                        }
+                    foreach ($pokemons as $pokemon) {
+
+                        include './views/layouts/_pokeCard.php';
+                    }
                     ?>
                 </div>
             </section>

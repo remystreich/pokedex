@@ -32,7 +32,7 @@ class UserController {
         }else{
             $user = new UserModel($data['name'],$data['password'],$data['email']);
             $user = $this->userRepository->save($user);
-            header('Location: /pokedex/index.php/login');
+            header("Location: ".Config::$absolutepath."/login");
         }
     }
 
@@ -40,10 +40,27 @@ class UserController {
         try {
             $user = $this->userRepository->login($data);
             $_SESSION['userId']= $user;
-            header('Location: /pokedex/index.php/dashboard');
+            header("Location: ".Config::$absolutepath."/dashboard");
         } catch (Exception $e) {
             include_once './views/login.php';
         }
+    }
+
+
+    public function authGuard(){
+       
+            if ($this->userRepository->getUser($_SESSION['userId'])) {
+                return true;
+            }else {
+                
+                header("Location: ".Config::$absolutepath."/login");
+                exit(); 
+            }
+        
+    }
+
+    public function updateUser(){
+        
     }
 }
 ?>
