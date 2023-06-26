@@ -39,36 +39,56 @@ class PokeController
 
     public function catch($data)
     {
-       
         try {
-          
-            $result = $this->fetchAPI($data['pokemon']);
-            
+            //récupérer les données du pokemon 
+            $result = $this->fetchAPI($data);
             $image = $result['image'];
+
+            //donner un nom unique à l'image, et le dossier ddans lequel elle sera enregistrée
             $fileName = uniqid() . '.png';
-            $uploadDirectory = './assets/uploads/';
-            $filePath = $uploadDirectory . $fileName;
+            $uploadDirectory = './assets/uploads/'. $fileName;
+            
+           
 
             // Télécharger l'image du Pokémon et l'enregistrer localement
             $imageData = file_get_contents($image);
+
+            //recupérer les données de l'image pour le validator
+            $imageInfo = getimagesizefromstring($imageData);
+           
+            // Créer un objet PokeModel avec les données du Pokémon
+            $pokemon = new PokeModel($result['name'], $result['apiTypes'][0]['name'], $_SESSION['userId'], $imageInfo, $result['pokedexId'] );
+
+            //validation des données
+            $validator = new PokeValidator($pokemon);
+            $errors=  $validator->validatePokemon();
+            if ($errors) {
+                throw new Exception('Format d\'image invalide');
+            }
+
+            //chemin à enregistrer en bdd, et modification de l'objet en instance
+            $filePathDb = 'uploads/' . $fileName;
+            $pokemon->setImage($filePathDb);
+
             if ($imageData === false) {
                 throw new Exception('Erreur lors du téléchargement de l\'image');
             }
-            file_put_contents($filePath, $imageData);
-            $filePathDb = 'uploads/' . $fileName;
-            // Créer un objet PokeModel avec les données du Pokémon
-            $pokemon = new PokeModel($result['name'], $result['apiTypes'][0]['name'], $_SESSION['userId'], $filePathDb, $result['pokedexId'] );
 
+            //enregistrer l'image dans le dossier upload
+            file_put_contents($uploadDirectory, $imageData);
+           
             // Enregistrer le Pokémon dans la base de données
             $pokemon = $this->pokeRepository->save($pokemon);
             $success = "Pokémon attrapé !";
             include_once './views/catchPoke.php';
+
         } catch (Exception $e) {
             // Gérer les exceptions
             include_once './views/catchPoke.php';
         }
     }
 
+    //fonction pour afficher tous les pokemons
     public function displayPoke()
     {
         $pokemons = $this->pokeRepository->getPokemons();
@@ -81,6 +101,7 @@ class PokeController
         $this->displayPoke();
     }
 
+    //evoluer pokemon
     public function evoPoke($id, $pokedexId)
     {
         try {
@@ -115,12 +136,11 @@ class PokeController
 
             // Enregistrer le Pokémon dans la base de données
             $evolution = $this->pokeRepository->update($id, $evolution);
-            $pokemons = $this->pokeRepository->getPokemons();
-            include_once './views/dashboard.php';
+            $this->displayPoke();
+            
         } catch (Exception $e) {
             // Gérer les exceptions
-            $pokemons = $this->pokeRepository->getPokemons();
-            include_once './views/dashboard.php';
+            $this->displayPoke();
         }
     }
 
@@ -145,6 +165,9 @@ class PokeController
         if (!empty($_FILES['image']['tmp_name'])) {
             $image = $_FILES['image'];
             $type = explode('/', $image['type'])[1];
+
+           // $imageInfo = getimagesize($image['tmp_name']);
+
             if ($validator->validateImage($image)==false) {
                 $errors['image'] = "Fichier invalide";
             }

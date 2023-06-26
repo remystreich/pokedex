@@ -11,26 +11,23 @@ class UserController {
     }
 
     public function register($data){
-        $validator = new Validator();
+        $user = new UserModel($data['name'],$data['password'],$data['email']);
+        $validator = new userValidator($user);
+        $errors=  $validator->validateUser();
+        
         if ($data['password']!== $data['confirmPassword']) {
             $errors['password1'] = "Les mots de passe doivent être identiques";
         }
-        if ($validator->validateEmail($data['email'])==false) {
-            $errors['email'] = "Email invalide";
-        }
-        if ($validator->validateName($data['name'])==false) {
-            $errors['name'] = "Nom invalide";
-        }
-        if ($validator->validatePassword($data['password'])==false) {
-            $errors['password2'] = "Mot de passe invalide";
-        }
+        
         if ($this->userRepository->emailVeryfy($data['email'])){
             $errors['email2'] = "Cette adresse mail existe déjà";
         }
+
         if ($errors){
             include_once './views/register.php';
+
         }else{
-            $user = new UserModel($data['name'],$data['password'],$data['email']);
+            $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
             $user = $this->userRepository->save($user);
             header("Location: ".Config::$absolutepath."/login");
         }

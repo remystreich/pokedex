@@ -8,6 +8,8 @@ require './src/services/Form.php';
 require './src/controllers/PokeController.php';
 require './src/models/PokeModel.php';
 require './src/repositories/PokeRepository.php';
+require './src/validators/userValidators.php';
+require './src/validators/PokeValidators.php';
 
 $userController = new UserController();
 $pokeController = new PokeController();
@@ -62,7 +64,7 @@ switch ($action) {
     case 'catchPoke':
         $userController->authGuard();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $pokeController->catch($_POST);
+            $pokeController->catch($_POST['pokemon']);
         }
         include_once('./views/catchPoke.php');
         break;

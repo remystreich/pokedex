@@ -24,8 +24,7 @@ class UserRepository
     {
         $name = $user->getName();
         $email = $user->getEmail();
-        $password = $user->getPassword();
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $password = $user->getPassword();    
         $query = "INSERT INTO user (name, email, password) VALUE (:name, :email, :password)";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":name", $name);

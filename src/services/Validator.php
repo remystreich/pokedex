@@ -26,18 +26,27 @@
             } else {
                 return false;
             }
-        }
+        }                       
 
         public function validateImage($file) {
             $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
             if (!in_array($fileExtension, $this->imageExtensions)) {
                 return false; // File extension is not allowed
             }
-    
+            
+            $imageInfo = getimagesize($file['tmp_name']);
+            
+            $fileMimeType = mime_content_type($imageInfo);
+            var_dump($imageInfo);
+            die();
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $fileMimeType = finfo_file($finfo, $file['tmp_name']);
             finfo_close($finfo);
-    
+            var_dump($fileMimeType);
+            die();
+            var_dump($file);
+            die();
+            
             if (strpos($fileMimeType, 'image') !== 0) {
                 return false; // File is not an image
             }
