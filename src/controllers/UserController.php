@@ -1,5 +1,5 @@
 <?php
-require_once './src/services/Validator.php';
+
 
 
 class UserController { 
@@ -56,8 +56,35 @@ class UserController {
         
     }
 
-    public function updateUser(){
+    public function updateUser($data){
+        //créer objet upload à partir d'une instance de PokeModel
+        $update = new UserModel($data['name'], $_SESSION['password'], $data['email']);
+        $validator = new userValidator($update);
+        $errors=  $validator->validateUser();
         
+        $user= $this->userRepository->getUser($_SESSION['userId']);
+        
+
+        if (isset($data['password']) && $data['password']!== $data['confirmPassword']) {
+            $errors['password1'] = "Les mots de passe doivent être identiques";
+        }
+        
+        if ($data['email']!==$user['email'] && $this->userRepository->emailVeryfy($data['email'])){
+            $errors['email2'] = "Cette adresse mail existe déjà";
+        }
+
+        if ($errors){
+            $version = 'user';
+            include_once './views/update.php';
+
+        }else{
+            //si pas d'erreurs de formulaire
+            
+            // Enregistrer le Pokémon dans la base de données
+            $update = $this->userRepository->update($update);
+            
+            header("Location:  ".Config::$absolutepath."/dashboard");
+        }
     }
 }
 ?>

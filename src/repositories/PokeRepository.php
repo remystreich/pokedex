@@ -97,10 +97,10 @@ class PokeRepository
 
     // }
     public function update($id, PokeModel $pokemon = null) {
+       
         if ($pokemon !== null) {
             $query = "UPDATE pokemon SET";
             $values = [];
-           
             if ($pokemon->getName() !== null) {
                 $query .= " name = :name,";
                 $values[':name'] = $pokemon->getName();
@@ -112,6 +112,7 @@ class PokeRepository
             }
             
             if ($pokemon->getImage() !== null) {
+              
                 $photoPath = './assets/' . $this->getPhotoPath($id);
                 unlink($photoPath);
                 $query .= " image = :image,";

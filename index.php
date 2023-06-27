@@ -89,7 +89,7 @@ switch ($action) {
         $userController->authGuard();
         $version = 'user';
         $data = $userRepository->getUser($_SESSION['userId']);
-
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $userController->updateUser($_POST);
         }

@@ -51,8 +51,6 @@ class UserRepository
         }
     }
 
-   
-
     public function getUser($id)
     {
         $query = "SELECT * FROM user  WHERE  id = :id ";
@@ -61,5 +59,24 @@ class UserRepository
         $state->execute();
         $user = $state->fetch(PDO::FETCH_ASSOC);
         return $user;
+    }
+
+    public function update(UserModel $user){
+        $query = "UPDATE user SET name= :name, email= :email WHERE id= :id";
+        $name = $user->getName();
+        $email = $user->getEmail();
+        if ($user->getPassword()!==null) {
+            $password = $user->getPassword(); 
+            $query .= " , password= :password";
+        }
+        $state = $this->db->getConnection()->prepare($query);
+        $state->bindParam(":name", $name);
+        $state->bindParam(":email", $email);
+        if ($user->getPassword()!==null){
+            $state->bindParam(":password", $password);
+        }
+        $state->bindParam(":id", $_SESSION['userId']);
+        $isUpdated = $state->execute();
+        return $isUpdated;
     }
 }

@@ -35,7 +35,7 @@ $form = new Form($_POST);
                         echo $form->submit();
                         ?>
                         <p class="text-sm font-light text-gray-500 ">
-                            Vous avez déjà un compte? <a href="#" class="font-medium text-primary-600 hover:underline ">Login</a>
+                            Vous n'avez pas de compte? <a href="<?php echo Config::$absolutepath; ?>/register" class="font-medium text-primary-600 hover:underline ">Register</>
                         </p>
                     </form>
                 </div>

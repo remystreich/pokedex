@@ -29,17 +29,21 @@ $form = new Form($_POST);
                         <?php
                         echo '<p class="text-red-500">' . $errors['name'] . '</p>';
                         echo $form->input('name', 'text','Nom');
+
                         echo '<p class="text-red-500">' . $errors['email'] . '</p>';
                         echo '<p class="text-red-500">' . $errors['email2'] . '</p>';
                         echo $form->input('email', 'text','Email');
+
                         echo '<p class="text-red-500">' . $errors['password2'] . '</p>';
                         echo $form->input('password', 'password','Mot de passe');
+
                         echo '<p class="text-red-500">' . $errors['password1'] . '</p>';
                         echo $form->input('confirmPassword', 'password','Confirmer le mot de passe');
+
                         echo $form->submit();
                         ?>
                         <p class="text-sm font-light text-gray-500 ">
-                            Vous avez déjà un compte? <a href="#" class="font-medium text-primary-600 hover:underline ">Login</a>
+                            Vous avez déjà un compte? <a href="<?php echo Config::$absolutepath; ?>/login" class="font-medium text-primary-600 hover:underline ">Login</a>
                         </p>
                     </form>
                 </div>

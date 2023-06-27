@@ -27,13 +27,14 @@ class pokeValidator  {
         if (preg_match($this->nameRegex, $this->pokemon->getType() )) {
             return true;
         } else {
-            $this->errors['name'] = "Type invalide";
+            $this->errors['type'] = "Type invalide";
         }
     }
 
     public function validateImage() {
         $file = $this->pokemon->getImage();
-       
+        
+       if ($file){
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $fileMimeType = finfo_buffer($finfo, $file);
         finfo_close($finfo);
@@ -41,6 +42,9 @@ class pokeValidator  {
         if ( !array_key_exists('mime', $file) ) { 
             $this->errors['image'] = "Ce fichier n'est pas une image";
         }
+
+       }
+
         return true;
     }
 

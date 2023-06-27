@@ -33,12 +33,14 @@ class userValidator  {
         }
     }
     public function validatePassword() {
-        if (preg_match($this->passwordRegex, $this->user->getPassword())) {
-            return true;
-        } else {
-            $this->errors['password2'] = "Mot de passe invalide";
+        if ($this->user->getPassword()) {
+            if (preg_match($this->passwordRegex, $this->user->getPassword())) {
+                return true;
+            } else {
+                $this->errors['password2'] = "Mot de passe invalide";
+            }
         }
-        
+
     }
 
     public function validateUser() {
