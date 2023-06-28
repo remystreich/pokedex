@@ -57,6 +57,7 @@ class PokeController
             //récupération de l'extension de l'image, lui donner un nom et son fichier d'enregistrement
             $type = explode('/', $imageInfo['mime'])[1];
             $fileName = uniqid() .'.'. $type;
+            
             $uploadDirectory = './assets/uploads/' . $fileName;
 
             // Créer un objet PokeModel avec les données du Pokémon
@@ -73,8 +74,7 @@ class PokeController
             $filePathDb = 'uploads/' . $fileName;
             $pokemon->setImage($filePathDb);
 
-            var_dump($uploadDirectory);
-            die();
+           
 
             //enregistrer l'image dans le dossier upload
             file_put_contents($uploadDirectory, $imageData);
