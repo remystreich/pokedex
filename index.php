@@ -1,5 +1,11 @@
 <?php
 session_start();
+$actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
+
+// Extraire l'action à partir de l'URL
+
+$action = $actionParts[3];
+var_dump($actionParts, $action);
 
 require './src/controllers/UserController.php';
 require './src/repositories/UserRepository.php';
@@ -10,19 +16,14 @@ require './src/models/PokeModel.php';
 require './src/repositories/PokeRepository.php';
 require './src/validators/userValidators.php';
 require './src/validators/PokeValidators.php';
-
+var_dump('hjeevz');
+die;
 $userController = new UserController();
 $pokeController = new PokeController();
 $pokeRepository = new PokeRepository();
 $userRepository = new UserRepository();
 
-$actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
 
-// Extraire l'action à partir de l'URL
-
-$action = $actionParts[3];
-var_dump($actionParts, $action);
-die;
 
 switch ($action) {
 
