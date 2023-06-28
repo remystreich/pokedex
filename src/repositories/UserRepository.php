@@ -62,7 +62,7 @@ class UserRepository
     }
 
     public function update(UserModel $user){
-        $query = "UPDATE user SET name= :name, email= :email WHERE id= :id";
+        $query = "UPDATE User SET name= :name, email= :email WHERE id= :id";
         $name = $user->getName();
         $email = $user->getEmail();
         if ($user->getPassword()!==null) {
