@@ -73,7 +73,9 @@ class PokeController
             $filePathDb = 'uploads/' . $fileName;
             $pokemon->setImage($filePathDb);
 
-
+            var_dump($uploadDirectory);
+            
+            die();
 
             //enregistrer l'image dans le dossier upload
             file_put_contents($uploadDirectory, $imageData);
