@@ -20,7 +20,7 @@ $userRepository = new UserRepository();
 $actionParts = isset($_SERVER['REQUEST_URI']) ? (str_replace(Config::$dirPath, '', $_SERVER['REQUEST_URI'])) : '';
 
 // Extraire l'action à partir de l'URL
-var_dump($_SERVER['REQUEST_URI']);
+var_dump($actionParts);
 die;
 $action = explode('/' , $actionParts);
 
