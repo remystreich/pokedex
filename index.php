@@ -21,6 +21,8 @@ $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_
 // Extraire l'action à partir de l'URL
 
 $action = $actionParts[3];
+var_dump($actionParts, $action);
+die;
 
 switch ($action) {
 
