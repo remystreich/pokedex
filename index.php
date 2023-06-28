@@ -23,8 +23,7 @@ $actionParts = isset($_SERVER['REQUEST_URI']) ? (str_replace(Config::$dirPath, '
 
 $action = explode('/' , $actionParts);
 
-var_dump($action);
-die;
+
 
 
 
