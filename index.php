@@ -20,8 +20,8 @@ $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_
 
 // Extraire l'action à partir de l'URL
 
-$action = $actionParts[3];
-var_dump($actionParts, $action);
+$action = $actionParts[2];
+
 
 
 switch ($action) {
@@ -44,13 +44,14 @@ switch ($action) {
     case 'dashboard':
         $userController->authGuard();
         //verification de parametre de requete
-        if (count($actionParts) > 4) {
-            $id = $actionParts[5];
-            if ($actionParts[4] == 'deletePoke') {
+        if (count($actionParts) > 3) {
+            $id = $actionParts[4];
+            if ($actionParts[3] == 'deletePoke') {
                 // Appeler la méthode deletePoke avec l'identifiant
                 $pokeController->deletePoke($id);
-            } else if ($actionParts[4] == 'evoPoke') {
-                $pokedexId = $actionParts[6];
+            } else if ($actionParts[3] == 'evoPoke') {
+                
+                $pokedexId = $actionParts[5];
                 $pokeController->evoPoke($id, $pokedexId);
             } else {
                 $pokeController->displayPoke();
@@ -74,7 +75,7 @@ switch ($action) {
     case 'updatePoke':
         $userController->authGuard();
         $version = 'pokemon';
-        $id = $actionParts[4];
+        $id = $actionParts[3];
         $data = $pokeRepository->getPokemon($id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pokeController->updatePoke($id, $_POST);

@@ -107,14 +107,15 @@ class PokeController
         try {
             //Chercher l'evolution du pokemon
             $result = $this->fetchAPI($pokedexId);
-
+            var_dump('uzeo');
+            
             //Si pas d'evolution
             if (count($result['apiEvolutions']) == 0) {
                 
                 throw new Exception('Ce pokémon ne peut pas évoluer');
                 
             }
-
+            
             //récupérer l'evolution du pokemon
             $evolution = $this->fetchAPI($result['apiEvolutions'][0]['pokedexId']);
 
