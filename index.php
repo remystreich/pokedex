@@ -39,22 +39,15 @@ switch ($action[0]) {
     case 'login':
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            var_dump('test1');
-
             $userController->login($_POST);
-            var_dump('test2');
         }
-        var_dump('test3');
         include_once('./views/login.php');
         break;
 
     case 'dashboard':
-        var_dump('test4');
         $userController->authGuard();
-        var_dump('test5');
         //verification de parametre de requete
         if (count($action) > 0) {
-            var_dump('test6');
             $id = $action[2];
             if ($action[1] == 'deletePoke') {
                 // Appeler la méthode deletePoke avec l'identifiant

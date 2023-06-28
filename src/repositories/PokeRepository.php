@@ -16,7 +16,8 @@ class PokeRepository
         $userId = $pokemon->getUserId();
         $image = $pokemon->getImage();
         $pokedexId = $pokemon->getPokedexId();
-
+        var_dump($image);
+        die();
         $query = "INSERT INTO pokemon (name, type, user_id, image, pokedex_id) VALUE (:name, :type, :user_id, :image, :pokedex_id)";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":name", $name);
