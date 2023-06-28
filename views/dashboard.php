@@ -13,7 +13,7 @@ session_start();
     <script src="https://kit.fontawesome.com/463c3f4f8a.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300  ">
+<body class="bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 min-h-screen ">
     <?php
     include './views/layouts/_header.php'
     ?>
