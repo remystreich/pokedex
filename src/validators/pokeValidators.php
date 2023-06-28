@@ -35,9 +35,7 @@ class pokeValidator  {
         $file = $this->pokemon->getImage();
         
        if ($file){
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $fileMimeType = finfo_buffer($finfo, $file);
-        finfo_close($finfo);
+       
       
         if ( !array_key_exists('mime', $file) ) { 
             $this->errors['image'] = "Ce fichier n'est pas une image";
