@@ -9,7 +9,7 @@ require './src/controllers/PokeController.php';
 require './src/models/PokeModel.php';
 require './src/repositories/PokeRepository.php';
 require './src/validators/userValidators.php';
-require './src/validators/PokeValidators.php';
+require './src/validators/pokeValidators.php';
 
 $userController = new UserController();
 $pokeController = new PokeController();
