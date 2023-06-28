@@ -17,7 +17,7 @@ class PokeRepository
         $image = $pokemon->getImage();
         $pokedexId = $pokemon->getPokedexId();
 
-        $query = "INSERT INTO Pokemon (name, type, user_id, image, pokedex_id) VALUE (:name, :type, :user_id, :image, :pokedex_id)";
+        $query = "INSERT INTO pokemon (name, type, user_id, image, pokedex_id) VALUE (:name, :type, :user_id, :image, :pokedex_id)";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":name", $name);
         $state->bindParam(":type", $type);
@@ -41,7 +41,7 @@ class PokeRepository
 
     public function getPokemon($id)
     {
-        $query = "SELECT * FROM Pokemon  WHERE  user_id = :userId and id = :id";
+        $query = "SELECT * FROM pokemon  WHERE  user_id = :userId and id = :id";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":userId", $_SESSION["userId"]);
         $state->bindParam(":id", $id);
@@ -52,7 +52,7 @@ class PokeRepository
 
 
     private function getPhotoPath($id){
-        $query = "SELECT image FROM Pokemon WHERE id = :id";
+        $query = "SELECT image FROM pokemon WHERE id = :id";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(':id', $id);
         $state->execute();
@@ -99,7 +99,7 @@ class PokeRepository
     public function update($id, PokeModel $pokemon = null) {
        
         if ($pokemon !== null) {
-            $query = "UPDATE Pokemon SET";
+            $query = "UPDATE pokemon SET";
             $values = [];
             if ($pokemon->getName() !== null) {
                 $query .= " name = :name,";
