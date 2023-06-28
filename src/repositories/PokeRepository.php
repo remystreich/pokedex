@@ -31,7 +31,7 @@ class PokeRepository
 
     public function getPokemons()
     {
-        $query = "SELECT * FROM Pokemon p WHERE  p.user_id = :userId";
+        $query = "SELECT * FROM pokemon  WHERE  user_id = :userId";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":userId", $_SESSION["userId"]);
         $state->execute();
