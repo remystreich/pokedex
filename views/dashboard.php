@@ -44,6 +44,8 @@ session_start();
         </div>
         <!-- Container for demo purpose -->
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+
 </body>
 
 </html>
