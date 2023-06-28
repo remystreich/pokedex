@@ -102,7 +102,7 @@ switch ($action[0]) {
         include_once('./views/update.php');
         break;
 
-    default:
-        
-        break;
+    case '':
+        header("Location:  " . Config::$absolutepath . "/dashboard");
+
 }
