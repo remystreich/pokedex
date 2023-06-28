@@ -11,7 +11,7 @@ class UserRepository
 
     public function emailVeryfy($email)
     {
-        $sthCheckEmail = $this->db->getConnection()->prepare("SELECT COUNT(*) AS count FROM User WHERE email = :email");
+        $sthCheckEmail = $this->db->getConnection()->prepare("SELECT COUNT(*) AS count FROM user WHERE email = :email");
         $sthCheckEmail->bindParam(':email', $email);
         $sthCheckEmail->execute();
         $result = $sthCheckEmail->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@ class UserRepository
         $name = $user->getName();
         $email = $user->getEmail();
         $password = $user->getPassword();    
-        $query = "INSERT INTO User (name, email, password) VALUE (:name, :email, :password)";
+        $query = "INSERT INTO user (name, email, password) VALUE (:name, :email, :password)";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":name", $name);
         $state->bindParam(":email", $email);
@@ -53,7 +53,7 @@ class UserRepository
 
     public function getUser($id)
     {
-        $query = "SELECT * FROM User  WHERE  id = :id ";
+        $query = "SELECT * FROM user  WHERE  id = :id ";
         $state = $this->db->getConnection()->prepare($query);
         $state->bindParam(":id", $id);
         $state->execute();
@@ -62,7 +62,7 @@ class UserRepository
     }
 
     public function update(UserModel $user){
-        $query = "UPDATE User SET name= :name, email= :email WHERE id= :id";
+        $query = "UPDATE user SET name= :name, email= :email WHERE id= :id";
         $name = $user->getName();
         $email = $user->getEmail();
         if ($user->getPassword()!==null) {
